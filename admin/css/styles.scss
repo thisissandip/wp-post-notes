@@ -67,3 +67,35 @@
 		}
 	}
 }
+
+/* Styles for Dashboard Widget */
+
+#post_notes_widget {
+	.inside {
+		form {
+			tbody {
+				tr {
+					display: flex;
+					flex-direction: column;
+					th {
+						padding: 2px 10px 2px 0;
+					}
+					td {
+						width: 100%;
+						padding: 5px 0;
+					}
+				}
+			}
+			input[type='submit'] {
+				color: #007cba;
+				background-color: transparent;
+				transition: 0.05s all ease;
+				margin-bottom: 10px;
+				&:hover {
+					color: #fff;
+					background-color: #007cba;
+				}
+			}
+		}
+	}
+}

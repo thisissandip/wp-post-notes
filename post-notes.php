@@ -21,9 +21,16 @@ define("POSTNOTES_URL", trailingslashit( plugins_url("/", __FILE__) ));
  * Enqueue Styles and Scripts for Admin
  */
 
-if(is_admin() && $_GET["page"]=="post_notes"){
-    require_once POSTNOTES_PATH . 'admin/admin_enqueue.php';
+function post_notes_admin_scripts(){
+    wp_enqueue_style( "post_note_admin_style", POSTNOTES_URL .  'admin/css/styles.css', array(), "", "all" );
+
+    if(is_admin() && $_GET["page"]=="post_notes"){
+        wp_enqueue_script( "post_note_admin_script", POSTNOTES_URL . 'admin/js/script.js', array("jquery"), "", true );
+    }
 }
+
+add_action( "admin_enqueue_scripts","post_notes_admin_scripts" );
+
 
 /**
  * Register Plugin Menu Page
@@ -121,7 +128,6 @@ function SanitizeInputs($input){
 
 add_action("admin_init", "register_post_note_OG");
 
-
 /*
     Add meta Boxes
 */
@@ -213,6 +219,69 @@ function set_custom_columns_data($column, $post_id){
         add_action( 'manage_'.$key.'_posts_custom_column', 'set_custom_columns_data' , 10, 2 );
     }
 
+/**
+ * Register Options Group for Dashboard
+ */
 
+function dashboard_post_note_OG(){
+        /* Register Setting */
+        $args = array( 
+            'sanitize_callback' => 'SanitizeDashBoardInputs',
+            );
+        register_setting( "dash_post_notes_OG", "dash_post_note", $args  );
+        /* Register Setting Section */
+        add_settings_section( "post_notes_dash_section", "", "post_notes_section_dashboard_display",
+         "dashboard" );
+        /* Register Settings Fields */
+        add_settings_field( "post_notes_dash_textarea", "Notes", "DashTextArea",
+         "dashboard", "post_notes_dash_section", array(
+             "class" => "dash-row",
+             "option_name" => "dash_post_note"
+         ) );
+}
+
+function post_notes_section_dashboard_display(){
+    echo "";
+}
+
+function DashTextArea($args){
+
+    $data = get_option( $args["option_name"] );
+    $name = $args["option_name"];
+    echo '
+        <p>
+            <textarea name="'.$name.'" id="'.$name.'" cols="30" rows="5" style="width:99%">'.$data.'</textarea>
+        </p>
+    ';
+}
+
+function SanitizeDashBoardInputs($input){
+
+    sanitize_text_field( $input );
+    return $input;
+}
+
+add_action("admin_init", "dashboard_post_note_OG");
+
+/**
+ * Add a new dashboard widget.
+ */
+function add_dashboard_widgets() {
+    wp_add_dashboard_widget( "post_notes_widget", "Notes by Post Notes", 
+    "render_dashboard_widget");
+
+}
+add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
+ 
+/**
+ * Output the contents of the dashboard widget
+ */
+function render_dashboard_widget( $post, $callback_args ) {
+    echo '<form id="postnote-dash-form" action="options.php" method="post" >';
+        settings_fields( "dash_post_notes_OG" );
+        do_settings_sections( "dashboard" );
+        submit_button("Save Note", "primary", "submit", false);
+    echo "</form>";
+}
 
 ?>

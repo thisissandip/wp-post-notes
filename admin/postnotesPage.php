@@ -7,7 +7,6 @@
                 <?php
                     settings_fields( "post_notes_OG" );
                     do_settings_sections( "post_notes" );
-
                 ?>
             </form>
         </div>
