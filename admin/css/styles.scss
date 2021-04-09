@@ -1,6 +1,69 @@
 .post-note-container {
-	width: 100%;
+	width: 98%;
 	background-color: white;
-	height: 500px;
 	padding: 10px;
+	.post-note-info {
+		padding: 10px;
+	}
+	.manage-post-container {
+		form {
+			table {
+				tbody {
+					tr {
+						display: flex;
+						flex-direction: column;
+						th {
+							width: 100%;
+							padding: 10px;
+							padding-bottom: 3px;
+						}
+						td {
+							padding-bottom: 0px;
+							width: 300px;
+							label {
+								display: flex;
+								justify-content: space-between;
+								.post-type-slug {
+									text-transform: uppercase;
+								}
+								.switch-wrapper {
+									input[type='checkbox'] {
+										position: absolute;
+										display: none;
+										z-index: 10;
+									}
+									.switch-bg {
+										position: relative;
+										width: 45px;
+										height: 20px;
+										background-color: grey;
+										border-radius: 10px;
+										.switch-circle {
+											position: absolute;
+											top: 50%;
+											left: 2px;
+											transform: translateY(-50%);
+											width: 18px;
+											height: 18px;
+											border-radius: 50%;
+											background-color: #fff;
+											transition: 0.1s left ease;
+										}
+									}
+
+									input[type='checkbox']:checked ~ .switch-bg {
+										background-color: #0073aa;
+									}
+
+									input[type='checkbox']:checked ~ .switch-bg > .switch-circle {
+										left: 25px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

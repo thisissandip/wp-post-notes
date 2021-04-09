@@ -21,7 +21,7 @@ define("POSTNOTES_URL", trailingslashit( plugins_url("/", __FILE__) ));
  * Enqueue Styles and Scripts for Admin
  */
 
-if(is_admin()){
+if(is_admin() && $_GET["page"]=="post_notes"){
     require_once POSTNOTES_PATH . 'admin/admin_enqueue.php';
 }
 
@@ -97,10 +97,19 @@ function CheckboxFields( $args ){
     
         $checked = isset($output[$posttype]) ? ($output[$posttype]==1 ? true : false) : false;
         echo '
-        <label for="'. $name .'" >
-            <span>'. $posttype .'</span>
-            <input id="'.$name .'" type="checkbox" class="regular-text" name="'. $name .'" value="1" '. ($checked ? 'checked' : '') .' />
-        </label>
+   
+            <label for="'. $name .'" >
+                <div class="post-type-slug">'. $posttype .'</div>
+
+                <div class="switch-wrapper">
+                    <input id="'.$name .'" type="checkbox" class="regular-text" name="'. $name .'" value="1" '. ($checked ? 'checked' : '') .' />
+                    
+                    <div class="switch-bg">
+                        <span class="switch-circle"></span>
+                    </div>
+                </div>
+            </label>
+     
         <br>
     ';
     }
@@ -181,19 +190,8 @@ add_action("save_post","save_post_notes");
     $allposts = get_option( "post_note_cpt" );
 
 function postnotes_add_columns($columns){
-        $title = $columns['title'];
-        $date = $columns["date"];
-        $author = $columns["author"];
-        $comments = $columns["comments"];
 
-        unset( $columns['title'], $columns['date'], $columns["author"], $columns["comments"] );
-
-        $columns['title']                   = __($title, 'post-note');
-        $columns['note']                   = __("Notes", 'post-note');
-        $columns['date']                   = __($date, 'post-note');
-        $columns['author']                   = __($author, 'post-note');
-        $columns['comments']                   = __($comments, 'post-note');
-       
+        $columns['note'] = __("Notes", 'post-note');
         return $columns;
 }
 

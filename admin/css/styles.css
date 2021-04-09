@@ -1,7 +1,80 @@
 .post-note-container {
-  width: 100%;
+  width: 98%;
   background-color: white;
-  height: 500px;
   padding: 10px;
+}
+
+.post-note-container .post-note-info {
+  padding: 10px;
+}
+
+.post-note-container .manage-post-container form table tbody tr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.post-note-container .manage-post-container form table tbody tr th {
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 3px;
+}
+
+.post-note-container .manage-post-container form table tbody tr td {
+  padding-bottom: 0px;
+  width: 300px;
+}
+
+.post-note-container .manage-post-container form table tbody tr td label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.post-note-container .manage-post-container form table tbody tr td label .post-type-slug {
+  text-transform: uppercase;
+}
+
+.post-note-container .manage-post-container form table tbody tr td label .switch-wrapper input[type='checkbox'] {
+  position: absolute;
+  display: none;
+  z-index: 10;
+}
+
+.post-note-container .manage-post-container form table tbody tr td label .switch-wrapper .switch-bg {
+  position: relative;
+  width: 45px;
+  height: 20px;
+  background-color: grey;
+  border-radius: 10px;
+}
+
+.post-note-container .manage-post-container form table tbody tr td label .switch-wrapper .switch-bg .switch-circle {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fff;
+  -webkit-transition: 0.1s left ease;
+  transition: 0.1s left ease;
+}
+
+.post-note-container .manage-post-container form table tbody tr td label .switch-wrapper input[type='checkbox']:checked ~ .switch-bg {
+  background-color: #0073aa;
+}
+
+.post-note-container .manage-post-container form table tbody tr td label .switch-wrapper input[type='checkbox']:checked ~ .switch-bg > .switch-circle {
+  left: 25px;
 }
 /*# sourceMappingURL=styles.css.map */
